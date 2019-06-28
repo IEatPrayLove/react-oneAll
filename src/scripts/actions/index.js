@@ -23,3 +23,25 @@ export const getNewWriter = ({ url, params }) => {
         }
     })
 }
+
+
+export const searchWriter = ({ url, params }) => {
+    return axios.get(url, {
+        params
+    }).then(res => {
+        return {
+            type: "searchWriter",
+            searchResult: res.data.result
+        }
+    })
+}
+
+
+export const checkTel = (flag2) => {
+    
+    return {
+        type: "checkTel",
+        mobileDis:flag2
+    }
+}
+

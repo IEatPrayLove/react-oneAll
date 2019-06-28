@@ -12,7 +12,7 @@ export const Foot = () => {
                 foots.map((item, index) => {
                     return (
                         <div key={index}>
-                            <NavLink to={item.path} activeClassName="nav-active">
+                            <NavLink to={item.path} activeClassName="fnav-active">
                                 <i className={"iconfont icon " + item.icon} ></i>
                                 <span> {item.txt}</span>
                             </NavLink>

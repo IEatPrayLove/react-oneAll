@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 const Item = List.Item;
 const Brief = Item.Brief;
 import "@/styles/index.scss"
-import { getWriter, getNewWriter } from "../../actions"
+import { getWriter, getNewWriter, changeSkip } from "../../actions"
 import { random } from 'node-forge';
+import history from "@/utils/history";
 @connect(state => ({ ...state }))
 export default class MyCard extends Component {
     componentWillMount() {
-        console.log(this.props);
+        console.log(this.props)
         const { dispatch } = this.props;
         dispatch(getWriter({
             url: "/react/getWriter",
@@ -25,25 +26,23 @@ export default class MyCard extends Component {
         const {
             cards,
             writer,
-            dispatch
+            dispatch,
+            skip
         } = this.props
-        console.log(this.pro)
         return (
             <WingBlank size="lg">
                 <WhiteSpace size="lg" />
                 {
                     cards.map((card, i) => {
                         return (
-                            <Card key={i}>
-                                {/* <Card.Header
-                                // title="This is title"
-                                // extra={<span>this is extra</span>}
-                                /> */}
-                                <Card.Body>
-                                    <img src={card.path} alt="" style={{ width: '95%', height: '40%' }} onClick={this.toContent} />
-                                </Card.Body>
-                                <Card.Footer content={card.title} style={{ color: '#000', margin: "10px 0 10px 0" }} />
-                            </Card>
+                            <a href={card.link} key={i}>
+                                <Card>
+                                    <Card.Body>
+                                        <img src={card.path} alt="" style={{ width: '95%', height: '40%' }} />
+                                    </Card.Body>
+                                    <Card.Footer content={card.title} style={{ color: '#000', margin: "10px 0 10px 0" }} />
+                                </Card>
+                            </a>
                         )
                     })
                 }
@@ -71,7 +70,7 @@ export default class MyCard extends Component {
                         url: "/react/getNewWriter",
                         params: {
                             limit: 3,
-                            skip: 3
+                            skip: skip+3
                         },
                     }))} size="small" inline style={{ margin: "20px 40%", border: "px solid #000", color: "#000" }}>换一换</Button>
                 </div>
