@@ -38,7 +38,7 @@ export default class Login extends Component {
                     style={defaultStyle}>
                     <InputItem
                         clear
-                        type="phone"
+                        type="tel"
                         placeholder="手机号码"
                     >账号</InputItem>
                     <InputItem

@@ -1,18 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://zuozhaoxi.com/base/swiper/css/swiper.css">
     <script src="https://zuozhaoxi.com/base/swiper/js/swiper.js"></script>
-    <meta name="referrer" content="no-referrer" />   
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <meta name="referrer" content="no-referrer" />
 
     <title>react-app</title>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+    <style type="text/css">
+        #bcid {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .my-head {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10000;
+        }
+    </style>
+
+    <script type="text/javascript">
+        document.addEventListener("plusready", plusReady, false);
+
+        function plusReady() {
+            // 			getNetWork();
+            setDevice();
+            getAcc()
+            getGeo();
+            getAuthServices()
+            getShares();
+        }
+        var shares = null;
+
+        function getShares() {
+            plus.share.getServices(function (s) {
+                shares = s;
+                console.log(JSON.stringify(shares));
+            }, function (e) {
+                alert("获取分享服务列表失败：" + e.message);
+            });
+        }
+
+        function openSharesList() {
+
+            mui('#sheet1').popover('toggle');
+        }
+
+        function shareTo(id) {
+
+            for (var i in shares) {
+                if (shares[i].id == id) {
+                    var s = shares[i];
+                    // 					if(!s.authenticated){
+                    s.authorize(function () {
+                        console.log("认证完成！");
+                        s.send({
+                            content: "Hello"
+                        }, function () {
+                            alert("分享成功！");
+                        }, function (e) {
+                            alert("分享失败：" + e.message);
+                        });
+                    }, function (e) {
+                        console.log("未进行认证");
+                    })
+                    //					}
+                }
+            }
+        }
+
+        function shareSystem() {
+            plus.share.sendWithSystem({
+                content: 'wuhan1901 2周全部就业 ！！！',
+                href: 'https://zuozhaoxi.com/project/'
+            }, function () {
+                console.log('分享成功');
+            }, function (e) {
+                console.log('分享失败：' + JSON.stringify(e));
+            });
+        }
+        var auths = null;
+        // 获取第三方登录的服务列表 
+        getAuthServices = () => {
+            plus.oauth.getServices((services) => {
+                auths = services;
+                console.log(JSON.stringify(auths));
+            }, (e) => {
+                plus.nativeUI.alert("获取登录授权服务列表失败：" + JSON.stringify(e));
+            })
+        }
+
+        authsLogout = () => {
+            for (var s in auths) {
+                auths[s].logout(function (e) {
+                    plus.nativeUI.alert("注销登录认证成功!");
+                }, function (e) {
+                    plus.nativeUI.alert("注销登录认证失败: " + JSON.stringify(e));
+                });
+            }
+        }
+        authLogin = (id) => {
+            for (var s in auths) {
+                if (auths[s].id == id) {
+                    var obj = auths[s];
+                    obj.login(function (e) {
+                        plus.nativeUI.alert("登录认证成功!");
+                        obj.getUserInfo(function (e) {
+                            plus.nativeUI.alert("获取用户信息成功：" + JSON.stringify(obj.userInfo));
+                        }, function (e) {
+                            plus.nativeUI.alert("获取用户信息失败： " + JSON.stringify(e));
+                        });
+                    }, function (e) {
+                        plus.nativeUI.alert("登录认证失败: " + JSON.stringify(e));
+                    });
+                }
+            }
+        }
+    </script>
 </head>
+
 <body>
     <div id="app">
-            
+
     </div>
 </body>
+
 </html>

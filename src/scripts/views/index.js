@@ -11,6 +11,9 @@ import Search from "./search";
 import Sset from "./set";
 import Login from "./login";
 import Register from "./register";
+import SetPassWord from "./setpassword";
+import MyHome from "./myhome"
+import Scan from "./scan";
 
 
 
@@ -45,6 +48,9 @@ class Layout extends Component {
                 <Route path="/set" component={Sset} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
+                <Route path="/setpassword" component={SetPassWord} />
+                <Route path="/myhome" component={MyHome} />
+                <Route path="/scan" component={Scan} />
             </Switch>
         )
     }

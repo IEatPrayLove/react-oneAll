@@ -6,7 +6,7 @@ import Head from '../../components/head';
 
 export default class TuWen extends React.Component {
     render() {
-        // console.log(this.props)
+        
         return (
             <div>
                 <Head title={this.props.match.params.word} />

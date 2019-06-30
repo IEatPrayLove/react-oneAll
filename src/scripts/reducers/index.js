@@ -42,7 +42,9 @@ const defaultState = {
     mobileDis: true,
     flag: true,
     count: 60,
-    txt: "获取验证码"
+    txt: "获取验证码",
+    registerData: [],
+    userinfo: []
 
 
 }
@@ -68,6 +70,30 @@ export const reducers = (state = defaultState, action) => {
 
         case "checkTel":
             return { ...state, mobileDis: action.mobileDis }
+            break;
+
+        case "getCode":
+            return { ...state, mobileDis: action.mobileDis, flag: action.flag }
+            break;
+
+        case "changeTxt":
+            return { ...state, count: action.count, txt: action.txt }
+            break;
+
+        case "changeTxt2":
+            return { ...state, txt: action.txt, flag: action.flag, mobileDis: action.mobileDis, count: action.count }
+            break;
+
+        case "changeToggle":
+            return { ...state, toggle: action.changeToggle }
+            break;
+
+        case "zhuCe":
+            return { ...state, registerData: action.registerData }
+            break;
+
+        case "setPwd":
+            return { ...state, userinfo: action.userinfo }
             break;
 
         default:
